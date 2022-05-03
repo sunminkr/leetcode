@@ -10,12 +10,12 @@ public:
     int findUnsortedSubarray(std::vector<int>& nums) {
         int max = nums[0], min = nums[nums.size()-1];
         int l_index = nums.size()-1, r_index = 0;
-        for(int i=0; i<nums.size(); i++) {  //find range - setting right index
+        for(int i=0; i<nums.size(); i++) {  //find range - set right index
             if(nums[i] < max) r_index=i;
             else max = nums[i];
         }
         if(r_index == 0) return 0;  //already in ascending order
-        for(int j=nums.size()-1; j>=0; j--) {   //find range - setting left index
+        for(int j=nums.size()-1; j>=0; j--) {   //find range - set left index
             if(nums[j] > min) l_index=j;
             else min = nums[j];
         }
