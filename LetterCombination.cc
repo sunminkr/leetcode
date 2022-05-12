@@ -23,7 +23,7 @@ public:
     vector<string> result;
     vector<string> letterCombinations(string digits) {
         if(digits.empty()) return result;
-        /* limit the size of vector. optimized? or no difference?
+        /* limit the size of vector. optimized? or no difference? : 1MB better
         int r_size = 1;
         for(int i=0; i< digits.size(); i++) {
             if(digits[i] == '7' || digits[i] == '9') r_size*=4;
@@ -38,30 +38,26 @@ public:
         }
         string subvector = "";
         int *index = new int[digits.size()]();
-        matchCombination(subvector, index, 0);
+        matchCombination(subvector, index, 0, digits.size()-1);
         delete[] index;
         return result;
     }
-    void matchCombination(string subvector, int* index, int count) {
-         if(count+1==TargetSet.size()) {
-            for(int k=0; k<TargetSet[TargetSet.size()-1].size(); k++) {
-                result.push_back(subvector.append(sizeof(char), TargetSet[TargetSet.size()-1].at(k)));
-                printVector(result);
-                subvector.pop_back();
-            }
-            subvector.pop_back();
-            if(count == 0) return;
-            count--;
-        }
-        subvector.append(sizeof(char), TargetSet[count].at(index[count]));
-        index[count]++;
-        matchCombination(subvector, index, count+1);
+    void matchCombination(string subvector, int* index, int count, int endpoint) {
         if(index[count] == TargetSet[count].size()) {
-            if(index[0] == TargetSet[0].size()) return;
             subvector.pop_back();
             index[count] = 0;
-            count--;
+            count-=2;
+        } else {
+            subvector.append(sizeof(char), TargetSet[count].at(index[count]));
+            index[count]++;
         }
+        if(count == endpoint) { 
+            result.push_back(subvector); 
+            subvector.pop_back(); 
+            count--; 
+        }
+        if(count==-2) return;
+        matchCombination(subvector, index, count+1, endpoint);
     }
     void printVector(vector<string> vec) {
         for(int i=0; i<vec.size(); i++) cout << vec[i] << " ";
@@ -76,4 +72,4 @@ int main () {
     cout << "result: ";
     s.printVector(s.result); 
     return 0;
-}
+}//need refactoring
