@@ -13,7 +13,7 @@ public:
     void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
         int itr=0;
         for (int i=0; i<n;) {
-            if(nums1[itr] == 0) {
+            if(nums1[itr] == 0 && itr >= m+i) {
                 nums1.erase(nums1.begin()+itr, nums1.end());
                 nums1.insert(nums1.end(), nums2.begin()+i, nums2.begin()+n);
                 break;
@@ -37,11 +37,11 @@ public:
 
 int main() {
     Solution s;
-    vector<int> nums1 = {4, 0, 0, 0, 0, 0};
-    vector<int> nums2 = {1, 2, 3, 5, 6};
+    vector<int> nums1 = {-1,0,0,3,3,3,0,0,0};
+    vector<int> nums2 = {1, 2, 2};
 
-    int m = 1;
-    int n = 5;
+    int m = 6;
+    int n = 3;
 
     s.merge(nums1, m, nums2, n);
     s.printVector(nums1);
