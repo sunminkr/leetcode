@@ -1,6 +1,6 @@
 /* 
     1332. Remove Palindromic Subsequences
-    O()
+    O(n)
  */
 
 #include <iostream>
